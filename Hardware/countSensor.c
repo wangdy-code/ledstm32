@@ -31,11 +31,11 @@ void CountSensor_Init()
     NVIC_Init(&NVIC_InitStructure);
 }
 
-void CountSensor_GetCounts()
+uint16_t CountSensor_GetCounts()
 {
     return count;
 }
-void EXTI15_10_IRQ_Handler(void)
+void EXTI15_10_IRQHandler(void)
 {
     if (EXTI_GetITStatus(EXTI_Line14) == SET) {
         EXTI_ClearITPendingBit(EXTI_Line14);
