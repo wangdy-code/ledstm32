@@ -113,7 +113,8 @@
         "name": "default",
         "incList": [
           ".eide/deps",
-          "lib/cmsis"
+          "lib/cmsis",
+          "System"
         ],
         "libList": [],
         "sourceDirList": [],
