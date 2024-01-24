@@ -1,17 +1,16 @@
 #include "stm32f10x.h"
-
+#include "Timer.h"
 #include "OLED.h"
 #include "encoder.h"
-
-int16_t Num = 0;
+uint16_t Num = 0;
 int main()
 {
     OLED_Init();
-    Encoder_Init();
-    OLED_ShowString(1, 1, "encoder");
+    Timer_Init();
     while (1) {
-        Num += Encoder_Get();
+        Num =Timer_Get();
         OLED_ShowString(2, 1, "Num: ");
-        OLED_ShowSignedNum(2, 8, Num, 5);
+        OLED_ShowNum(2, 8, Num, 5);
     }
+    return 0;
 }

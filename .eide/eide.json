@@ -6,7 +6,8 @@
     ".eide/deps",
     "src",
     "hal",
-    "Hardware"
+    "Hardware",
+    "System"
   ],
   "outDir": "build",
   "deviceName": "STM32F102C8",
@@ -113,8 +114,7 @@
         "name": "default",
         "incList": [
           ".eide/deps",
-          "lib/cmsis",
-          "System"
+          "lib/cmsis"
         ],
         "libList": [],
         "sourceDirList": [],
