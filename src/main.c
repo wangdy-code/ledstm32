@@ -4,19 +4,25 @@
 #include "encoder.h"
 #include "pwm.h"
 #include "delay.h"
+#include "servo.h"
 int main()
 {
     OLED_Init();
-    Pwm_Init();
     Delay_Init();
+    Servo_Init();
+
     while (1) {
-        for (uint16_t i = 0; i < 100; i++) {
-            PWM_SetCompare1(i);
-            Delay_ms(10);
+        for (uint16_t i = 0; i <= 180; i += 1) {
+            Servo_SetAngle(i);
+            OLED_ShowString(1, 1, "Angle: ");
+            OLED_ShowNum(1, 9, i,3);
+            Delay_ms(100);
         }
-        for (uint16_t i = 0; i < 100; i++) {
-            PWM_SetCompare1(100-i);
-            Delay_ms(10);
+        for (uint16_t i = 0; i <= 180; i += 1) {
+            Servo_SetAngle(180 - i);
+            OLED_ShowString(1, 1, "Angle: ");
+            OLED_ShowNum(1, 9,180 - i,3);
+            Delay_ms(100);
         }
     }
     return 0;
