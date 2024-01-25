@@ -2,15 +2,22 @@
 #include "Timer.h"
 #include "OLED.h"
 #include "encoder.h"
-uint16_t Num = 0;
+#include "pwm.h"
+#include "delay.h"
 int main()
 {
     OLED_Init();
-    Timer_Init();
+    Pwm_Init();
+    Delay_Init();
     while (1) {
-        Num =Timer_Get();
-        OLED_ShowString(2, 1, "Num: ");
-        OLED_ShowNum(2, 8, Num, 5);
+        for (uint16_t i = 0; i < 100; i++) {
+            PWM_SetCompare1(i);
+            Delay_ms(10);
+        }
+        for (uint16_t i = 0; i < 100; i++) {
+            PWM_SetCompare1(100-i);
+            Delay_ms(10);
+        }
     }
     return 0;
 }
