@@ -7,7 +7,7 @@ void Pwm_Init()
 
     GPIO_InitTypeDef GPIO_InitStructure;
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;
-    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_0;
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_2;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
 
@@ -17,7 +17,7 @@ void Pwm_Init()
     TIM_TimeBaseInitStructure.TIM_ClockDivision     = TIM_CKD_DIV1;
     TIM_TimeBaseInitStructure.TIM_CounterMode       = TIM_CounterMode_Up;
     TIM_TimeBaseInitStructure.TIM_Period            = 100 - 1; // 计数 10000
-    TIM_TimeBaseInitStructure.TIM_Prescaler         = 720 - 1;  // 分频   72mhz  分频7200   72 000 000/7200=10000
+    TIM_TimeBaseInitStructure.TIM_Prescaler         = 36 - 1;  // 分频   72mhz  分频7200   72 000 000/7200=10000
     TIM_TimeBaseInitStructure.TIM_RepetitionCounter = 0;
     TIM_TimeBaseInit(TIM2, &TIM_TimeBaseInitStructure);
 
@@ -31,7 +31,7 @@ void Pwm_Init()
 
     TIM_Cmd(TIM2, ENABLE);
 }
-void PWM_SetCompare1(uint16_t Compare)
+void PWM_SetCompare3(uint16_t Compare)
 {
-	TIM_SetCompare1(TIM2, Compare);		//设置CCR1的值
+	TIM_SetCompare3(TIM2, Compare);		//设置CCR1的值
 }
