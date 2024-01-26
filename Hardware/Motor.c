@@ -14,7 +14,7 @@ void Motor_Init()
     Pwm_Init();
 }
 
-void Motor_SetSpeed(int8_t speed)
+void Motor_SetSpeed(int16_t speed)
 {
     if (speed >= 0) {
         GPIO_SetBits(GPIOA, GPIO_Pin_4);
@@ -24,6 +24,6 @@ void Motor_SetSpeed(int8_t speed)
 
         GPIO_SetBits(GPIOA, GPIO_Pin_5);
         GPIO_ResetBits(GPIOA, GPIO_Pin_4);
-        PWM_SetCompare3(speed);
+        PWM_SetCompare3(-speed);
     }
 }

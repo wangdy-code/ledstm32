@@ -6,21 +6,33 @@
 #include "delay.h"
 #include "Motor.h"
 #include "key.h"
-int main()
+uint8_t KeyNum;		//定义用于接收按键键码的变量
+int8_t Speed;		//定义速度变量
+
+int main(void)
 {
-    OLED_Init();
-    Motor_Init();
-    KEY_Init();
-    OLED_ShowString(1, 1, "Speed:");
-    int16_t speed = -50;
-    OLED_ShowSignedNum(1, 8, speed, 2);
-    Motor_SetSpeed(speed);
-    while (1) {
-        if (Key_GetNum() == 1) {
-            speed += 10;
-            Motor_SetSpeed(speed);
-            OLED_ShowSignedNum(1, 15, speed, 3);
-        }
-    }
-    return 0;
+	/*模块初始化*/
+	OLED_Init();		//OLED初始化
+	Motor_Init();		//直流电机初始化
+	KEY_Init();			//按键初始化
+	
+	/*显示静态字符串*/
+	OLED_ShowString(1, 1, "Speed:");		//1行1列显示字符串Speed:
+	
+	while (1)
+	{
+		KeyNum = Key_GetNum();				//获取按键键码
+		if (KeyNum == 1)					//按键1按下
+		{
+			Speed += 20;					//速度变量自增20
+			if (Speed > 100)				//速度变量超过100后
+			{
+				Speed = -100;				//速度变量变为-100
+											//此操作会让电机旋转方向突然改变，可能会因供电不足而导致单片机复位
+											//若出现了此现象，则应避免使用这样的操作
+			}
+		}
+		Motor_SetSpeed(Speed);				//设置直流电机的速度为速度变量
+		OLED_ShowSignedNum(1, 7, Speed, 3);	//OLED显示速度变量
+	}
 }

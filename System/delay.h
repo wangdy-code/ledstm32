@@ -1,5 +1,8 @@
 #ifndef __DELAY_H
-void Delay_Init();
-void Delay_us(u32 nus);
-void Delay_ms(u16 nms);
-#endif // !__DELAY_H
+#define __DELAY_H
+
+void Delay_us(uint32_t us);
+void Delay_ms(uint32_t ms);
+void Delay_s(uint32_t s);
+
+#endif
