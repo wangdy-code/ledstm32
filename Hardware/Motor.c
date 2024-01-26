@@ -14,16 +14,18 @@ void Motor_Init()
     Pwm_Init();
 }
 
-void Motor_SetSpeed(int16_t speed)
+void Motor_SetSpeed(int8_t speed)
 {
-    if (speed >= 0) {
-        GPIO_SetBits(GPIOA, GPIO_Pin_4);
-        GPIO_ResetBits(GPIOA, GPIO_Pin_5);
-        PWM_SetCompare3(speed);
-    } else {
-
-        GPIO_SetBits(GPIOA, GPIO_Pin_5);
-        GPIO_ResetBits(GPIOA, GPIO_Pin_4);
-        PWM_SetCompare3(-speed);
+    if (speed >= 0) // 如果设置正转的速度值
+    {
+        GPIO_SetBits(GPIOA, GPIO_Pin_4);   // PA4置高电平
+        GPIO_ResetBits(GPIOA, GPIO_Pin_5); // PA5置低电平，设置方向为正转
+        PWM_SetCompare3(speed);            // PWM设置为速度值
+    }
+    if (speed < 0) // 否则，即设置反转的速度值
+    {
+        GPIO_ResetBits(GPIOA, GPIO_Pin_4); // PA4置低电平
+        GPIO_SetBits(GPIOA, GPIO_Pin_5);   // PA5置高电平，设置方向为反转
+        PWM_SetCompare3(-speed);           // PWM设置为负的速度值，因为此时速度值为负数，而PWM只能给正数
     }
 }
